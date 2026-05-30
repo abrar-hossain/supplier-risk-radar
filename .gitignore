@@ -1,0 +1,14 @@
+# Environment variables - never upload secrets
+.env
+
+# Go build files
+*.exe
+*.out
+bin/
+
+# Mac system files
+.DS_Store
+
+# IDE files
+.idea/
+.vscode/
