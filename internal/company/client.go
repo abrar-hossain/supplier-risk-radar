@@ -2,6 +2,7 @@ package company
 
 import (
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -17,4 +18,18 @@ func NewCompanyClient(apiKey string) *CompanyClient {
 			Timeout: 10 * time.Second,
 		},
 	}
+}
+
+func (c *CompanyClient) SearchCompanies(name string) ([]Company, error) {
+	baseURL := "https://api.company-information.service.gov.uk/search/companies"
+	searchURL := baseURL + "?q=" + url.QueryEscape(name)
+
+	req, err := http.NewRequest("GET", searchURL, nil)
+
+	if err != nil {
+		return nil, err
+	}
+	req.SetBasicAuth(c.APIKey, "")
+
+	return nil, nil
 }
