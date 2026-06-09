@@ -1,7 +1,7 @@
 package company
 
 type SearchResult struct {
-	Name           string `json:"company_name"`
+	Name           string `json:"title"`
 	Number         string `json:"company_number"`
 	Status         string `json:"company_status"`
 	DateOfCreation string `json:"date_of_creation"`

@@ -1,7 +1,9 @@
 package company
 
 import (
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -43,5 +45,21 @@ func (c *CompanyClient) SearchCompanies(name string) ([]SearchResult, error) {
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return nil, nil
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	// Print for debugging
+	//fmt.Println(string(body))
+
+	var result SearchResponse
+
+	err = json.Unmarshal(body, &result)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result.Items, nil
 }
